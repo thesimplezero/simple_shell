@@ -2,10 +2,10 @@
 #include "processes.h"
 
 /**
- * @brief Executes multiple commands separated by the ';' character
+ * @brief: Executes multiple commands separated by the ';' character
  *
- * @param progname The name of the program (usually argv[0])
- * @param line A string containing one or more commands separated by ';'
+ * @param progname: The name of the program (usually argv[0])
+ * @param line: A string containing one or more commands separated by ';'
  * @return If successful, returns 0. If an error occurs, returns -1.
  */
 int handle_command_separator(char *progname, char *line)
