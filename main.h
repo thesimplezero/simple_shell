@@ -8,6 +8,8 @@
 #include <signal.h>
 #include <string.h>
 
+extern char **environ;
+
 void print_prompt(void);
 ssize_t custom_getline(char **lineptr, size_t *n, FILE *stream);
 void sigint_handler(int sig);

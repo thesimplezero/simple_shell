@@ -80,7 +80,8 @@ numLen = strlen(numStr);
 custom_strncpy(&str[j], numStr, numLen + 1);
 j += numLen;
 i += 2;
-} else
+}
+else
 {
 str[j++] = format[i++];
 }
