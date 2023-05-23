@@ -1,21 +1,11 @@
 #include "main.h"
 #include <stdlib.h>
 /**
- * @brief Handles the program's exit based on the provided 
- *  arguments.
- * This function takes a double pointer to a character array as its parameter.
- * It is responsible for processing the exit status argument and terminating
- * the program accordingly. If a valid exit status argument is provided, the
- * program exits with that status. If an invalid argument is encountered or no
- * argument is provided, an error message is displayed, and the function returns
- * -1 to indicate an error condition.
+ * handle_exit - Handles the "exit" command in the shell.
+ * @args: The array of command arguments.
  *
- * @param args A double pointer to a character array representing 
- *      the command-line arguments.
- * The exit status argument is expected to be present at args[1].
- * 
- * @return Returns -1 if an error occurs, otherwise the program 
- *                 is terminated with the provided exit status.
+ * Return: -1 if an error occurs or the shell should exit,
+ *        otherwise the function does not return.
  */
 int handle_exit(char **args)
 {
