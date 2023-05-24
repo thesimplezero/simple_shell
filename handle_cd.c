@@ -19,16 +19,16 @@ handle_cd(char **args)
 
 	/* Determine the target directory */
 	if (args[1] == NULL || strcmp(args[1], "-") == 0)
-{
+	{
 		target_dir = home_dir;
 	} else
-{
+	{
 		target_dir = args[1];
 	}
 
 	/* Change to the target directory */
 	if (chdir(target_dir) == -1)
-{
+	{
 		perror("Error changing directory");
 		free(old_dir);
 		return (-1);
@@ -37,7 +37,7 @@ handle_cd(char **args)
 	/* Get the current directory */
 	current_dir = getcwd(NULL, 0);
 	if (current_dir == NULL)
-{
+	{
 		perror("Error getting current directory");
 		free(old_dir);
 		return (-1);
@@ -45,7 +45,7 @@ handle_cd(char **args)
 
 	/* Update the PWD environment variable */
 	if (setenv("PWD", current_dir, 1) == -1)
-{
+	{
 		perror("Error setting PWD");
 		free(old_dir);
 		free(current_dir);
@@ -54,7 +54,7 @@ handle_cd(char **args)
 
 	/* Print the old directory if cd - was used */
 	if (strcmp(args[1], "-") == 0)
-{
+	{
 		write(STDOUT_FILENO, old_dir, strlen(old_dir));
 		write(STDOUT_FILENO, "\n", 1);
 	}

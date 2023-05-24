@@ -5,7 +5,7 @@
 #include <string.h>
 
 /**
- * create_process - creates a new process using fork
+ * create_process - Creates a new process using fork
  *
  * Return: pid of the new process, or -1 on failure
  */
@@ -24,10 +24,10 @@ pid_t create_process(void)
 }
 
 /**
- * execute_command - executes a command using execve
- * @command: the command to execute
- * @args: null-terminated array of argument strings
- * @program_name: name of the program
+ * execute_command - Executes a command using execve
+ * @command: The command to execute
+ * @args: Null-terminated array of argument strings
+ * @program_name: Name of the program
  *
  * Return: -1 on error, does not return on success
  */
@@ -57,10 +57,10 @@ int execute_command(char *command, char **args, char *program_name)
 }
 
 /**
- * resolve_path - resolves a command to an executable in the PATH
- * @command: the command to resolve
+ * resolve_path - Resolves a command to an executable in the PATH
+ * @command: The command to resolve
  *
- * Return: resolved path to executable on success, NULL on failure
+ * Return: Resolved path to executable on success, NULL on failure
  */
 char *resolve_path(char *command)
 {
