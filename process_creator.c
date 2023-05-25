@@ -24,75 +24,75 @@ pid_t create_process(void)
 }
 
 /**
- * execute_command - executes a command using execve
- * @command: the command to execute
- * @args: null-terminated array of argument strings
- * @program_name: name of the program
+ * execute_command - Executes a command.
+ * @command: The command to execute.
+ * @args: The arguments to pass to the command.
+ * @program_name: The name of the program calling this function.
  *
- * Return: -1 on error, does not return on success
+ * Return: 0 on success, -1 on failure.
  */
 int execute_command(char *command, char **args, char *program_name)
 {
-	char *resolved_path;
+    char *resolved_path;
 
-	resolved_path = resolve_path(command);
-	if (resolved_path == NULL)
-	{
-		write(STDERR_FILENO, program_name, strlen(program_name));
-		write(STDERR_FILENO, ": 1: ", 5);
-		write(STDERR_FILENO, command, strlen(command));
-		write(STDERR_FILENO, ": not found\n", 12);
-		return (-1);
-	}
+    resolved_path = resolve_path(command);
+    if (resolved_path == NULL)
+    {
+        write(STDERR_FILENO, program_name, strlen(program_name));
+        write(STDERR_FILENO, ": 1: ", 5);
+        write(STDERR_FILENO, command, strlen(command));
+        write(STDERR_FILENO, ": not found\n", 12);
+        return (-1);
+    }
 
-	if (execve(resolved_path, args, NULL) == -1)
-	{
-		perror("Error executing command");
-		free(resolved_path);
-		return (-1);
-	}
+    if (execve(resolved_path, args, NULL) == -1)
+    {
+        perror("Error executing command");
+        free(resolved_path);
+        return (-1);
+    }
 
-	free(resolved_path);
-	return (0);
+    free(resolved_path);
+    return (0);
 }
 
 /**
- * resolve_path - resolves a command to an executable in the PATH
- * @command: the command to resolve
+ * resolve_path - Resolves a command to an executable in the PATH.
+ * @command: The command to resolve.
  *
- * Return: resolved path to executable on success, NULL on failure
+ * Return: Resolved path to executable on success, NULL on failure.
  */
 char *resolve_path(char *command)
 {
-	char *PATH;
-	char *p;
-	char *resolved_path;
-	char *possible_path;
+    char *PATH;
+    char *p;
+    char *resolved_path;
+    char *possible_path;
 
-	if (strchr(command, '/') != NULL)
-	{
-		if (access(command, X_OK) == 0)
-			return (custom_strdup(command));
-		return (NULL);
-	}
+    if (strchr(command, '/') != NULL)
+    {
+        if (access(command, X_OK) == 0)
+            return (custom_strdup(command));
+        return (NULL);
+    }
 
-	PATH = getenv("PATH");
-	p = custom_strtok(PATH, ":");
-	resolved_path = NULL;
+    PATH = getenv("PATH");
+    p = custom_strtok(PATH, ":");
+    resolved_path = NULL;
 
-	while (p != NULL)
-	{
-		possible_path = malloc(strlen(p) + strlen(command) + 2);
-		sprintf(possible_path, "%s/%s", p, command);
-		if (access(possible_path, X_OK) == 0)
-		{
-			resolved_path = possible_path;
-			break;
-		}
+    while (p != NULL)
+    {
+        possible_path = malloc(strlen(p) + strlen(command) + 2);
+        sprintf(possible_path, "%s/%s", p, command);
+        if (access(possible_path, X_OK) == 0)
+        {
+            resolved_path = possible_path;
+            break;
+        }
 
-		free(possible_path);
-		p = custom_strtok(NULL, ":");
-	}
+        free(possible_path);
+        p = custom_strtok(NULL, ":");
+    }
 
-	return (resolved_path);
+    return (resolved_path);
 }
