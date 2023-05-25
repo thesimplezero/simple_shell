@@ -1,19 +1,25 @@
 #include "main.h"
 #include "processes.h"
 /**
-<<<<<<< HEAD
- * @brief: Executes multiple commands separated by the ';' character
+ * handle_command_separator - Handles command separator
+ *                            logic in input line.
+ * @progname: The program name or identifier.
+ * @line: The input line to be processed.
  *
- * @param progname: The name of the program (usually argv[0])
- * @param line: A string containing one or more commands separated by ';'
- * @return If successful, returns 0. If an error occurs, returns -1.
-=======
- * handle_command_separator - Handle separation of commands
- * @progname: Program name
- * @line: The line of commands
+ * Return: 0 on successful execution.
  *
- * Return: Always 0
->>>>>>> 373e7a0f4420f9db148b55ecb35712157850c6b5
+ * Description:
+ * This function takes a program name and a line of input
+ * and handles command separator logic.It parses the input line
+ * into commands using a custom_strtok function, then further parses
+ * each command into tokens using the command_parser function.
+ * It checks if the command is abuilt-in command (cd or exit)
+ * and handles it accordingly. If not a built-in command, it creates
+ * a new process to execute the command using create_process
+ * function and waits for the process to complete using
+ * wait_for_process function. The function iterates through
+ * all commands in the input line and frees
+ * allocated memory before returning 0.
  */
 int handle_command_separator(char *progname, char *line)
 {

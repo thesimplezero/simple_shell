@@ -1,7 +1,7 @@
 
 # Simple Shell
 
-This is a simple UNIX command interpreter written in C language. The program provides a command line user interface for UNIX-like operating systems. 
+This is a simple UNIX command interpreter written in C language. The program provides a command line user interface for UNIX-like operating systems.
 
 ## Features
 
