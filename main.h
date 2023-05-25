@@ -11,7 +11,7 @@
 extern char **environ;
 
 void print_prompt(void);
-ssize_t custom_getline(char **lineptr, size_t *n, FILE *stream);
+ssize_t custom_getline(char **lineptrr, size_t *n, FILE *stream);
 void sigint_handler(int sig);
 char **command_parser(char *line, const char *delimiter);
 char *get_path();

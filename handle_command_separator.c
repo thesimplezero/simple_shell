@@ -1,19 +1,11 @@
 #include "main.h"
 #include "processes.h"
 /**
-<<<<<<< HEAD
- * @brief: Executes multiple commands separated by the ';' character
- *
- * @param progname: The name of the program (usually argv[0])
- * @param line: A string containing one or more commands separated by ';'
- * @return If successful, returns 0. If an error occurs, returns -1.
-=======
  * handle_command_separator - Handle separation of commands
  * @progname: Program name
  * @line: The line of commands
  *
  * Return: Always 0
->>>>>>> 373e7a0f4420f9db148b55ecb35712157850c6b5
  */
 int handle_command_separator(char *progname, char *line)
 {
