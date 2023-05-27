@@ -27,6 +27,9 @@ void custom_sprintf(char *str, const char *format, int number);
 char *custom_strncpy(char *destination, const char *source, size_t num);
 int handle_logical_operators(char *progname, char *line);
 void trim_spaces(char *line);
+void free_tokens(char **tokens);
+void handle_memory_error(void);
+
 
 
 #endif /* MAIN_H */

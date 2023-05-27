@@ -3,22 +3,16 @@
 #include <sys/wait.h>
 
 /**
-* process_line - process each line of input
-* @line: the input line
-* @is_interactive: flag to check if input is interactive
+* process_command - Processes a single command.
+* @command: The command to process.
 * @program_name: name of the program
 *
 * Return: nothing
 */
-void process_line(char *line, int is_interactive, char *program_name)
+void process_command(char *command, char *program_name)
 {
-char **tokens = NULL;
-pid_t pid;
+char **tokens = command_parser(command, " \t");
 
-/* Cast to void to suppress unused parameter warning */
-(void)is_interactive;
-
-tokens = command_parser(line, ";");
 if (tokens != NULL && tokens[0] != NULL)
 {
 if (strcmp(tokens[0], "env") == 0)
@@ -29,7 +23,7 @@ else if (strcmp(tokens[0], "cd") == 0)
 handle_cd(tokens);
 else
 {
-pid = create_process();
+pid_t pid = create_process();
 if (pid == 0)
 {
 if (execute_command(tokens[0], tokens, program_name) == -1)
@@ -47,8 +41,38 @@ if (wait_for_process(pid) == -1)
 perror("Failed to wait for process");
 }
 }
-free(tokens);
 }
+
+free_tokens(tokens);
+}
+
+/**
+* process_line - Process each line of input
+* @line: the input line
+* @is_interactive: flag to check if input is interactive
+* @program_name: name of the program
+*
+* Return: nothing
+*/
+void process_line(char *line, int is_interactive, char *program_name)
+{
+char **commands = NULL;
+int i;
+
+(void)is_interactive;
+
+/* Parse commands separated by ';' */
+commands = command_parser(line, ";");
+
+if (commands == NULL)
+return;
+
+/* Loop over each command */
+for (i = 0; commands[i] != NULL; i++)
+process_command(commands[i], program_name);
+
+/* Free commands array */
+free_tokens(commands);
 }
 
 

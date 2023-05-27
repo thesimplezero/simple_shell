@@ -43,38 +43,52 @@ char **command_parser(char *line, const char *delimiter)
 {
 char **tokens = NULL;
 char *token = NULL;
-size_t i = 0;
+size_t i = 0, num_tokens = 0;
 
 if (line == NULL || delimiter == NULL)
-{
 return (NULL);
-}
-
-tokens = malloc(sizeof(char *));
-if (tokens == NULL)
-{
-return (NULL);
-}
-
 line[strcspn(line, "\n")] = '\0';
 line[strcspn(line, "#")] = '\0';
 line = trim_string(line);
 
+num_tokens = 4;
+tokens = malloc(sizeof(char *) * num_tokens);
+
+/* If memory allocation fails, handle error */
+if (tokens == NULL)
+handle_memory_error();
+
 token = custom_strtok(line, delimiter);
 while (token != NULL)
 {
-tokens = realloc(tokens, (i + 2) * sizeof(char *));
-if (tokens == NULL)
+if (i == num_tokens)
 {
-return (NULL);
+num_tokens *= 2;
+tokens = realloc(tokens, sizeof(char *) * num_tokens);
+
+/* If memory allocation fails, handle error */
+if (tokens == NULL)
+handle_memory_error();
 }
+tokens[i] = strdup(token);
 
-tokens[i] = trim_string(token);
+/* If memory allocation fails, handle error */
+if (tokens[i] == NULL)
+handle_memory_error();
 i++;
-
 token = custom_strtok(NULL, delimiter);
 }
 
 tokens[i] = NULL;
 return (tokens);
+}
+/**
+* handle_memory_error - Handles memory allocation errors.
+*
+* Return: void.
+*/
+void handle_memory_error(void)
+{
+perror("Error: memory allocation failed");
+exit(EXIT_FAILURE);
 }
