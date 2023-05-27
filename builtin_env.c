@@ -11,7 +11,6 @@ builtin_env(void)
 {
 	char **env = environ;
 
-	/* Iterate over each environment variable and print it */
 	while (*env)
 {
 		if (write(STDOUT_FILENO, *env, strlen(*env)) == -1)
